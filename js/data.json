@@ -1,0 +1,60 @@
+ {
+  "devicesList": [
+    {
+      "name":"老朋友的颗粒物检测",
+      "id":"D001",
+      "imgUrl":"../image/D001.png",
+      "datas":[
+        { "name":"温度","id":"T"},
+        { "name":"湿度","id":"H"},
+        { "name":"光照强度","id":"S"},
+        { "name":"二氧化碳浓度","id":"C"}
+      ]
+    },
+    {
+      "name":"大气质量检测站点",
+      "id":"D002",
+      "imgUrl":"../image/D002.png",
+      "datas":[
+        { "name":"温度","id":"T"},
+        { "name":"湿度","id":"H"},
+        { "name":"光照强度","id":"S"},
+        { "name":"二氧化碳浓度","id":"C"}
+      ]
+    },
+    {
+      "name":"客厅颗粒物检测",
+      "id":"D003",
+      "imgUrl":"../image/D003.png",
+      "datas":[
+        { "name":"温度","id":"T"},
+        { "name":"湿度","id":"H"},
+        { "name":"光照强度","id":"S"},
+        { "name":"二氧化碳浓度","id":"C"}
+      ]
+    },
+    {
+      "name":"室内空气实时监控",
+      "id":"D004",
+      "imgUrl":"../image/D004.png",
+      "datas":[
+        { "name":"温度","id":"T"},
+        { "name":"湿度","id":"H"},
+        { "name":"光照强度","id":"S"},
+        { "name":"二氧化碳浓度","id":"C"}
+      ]
+    },
+    {
+      "name":"空气检测器",
+      "id":"D005",
+      "imgUrl":"../image/D004.png",
+      "datas":[
+        { "name":"温度","id":"T"},
+        { "name":"湿度","id":"H"},
+        { "name":"光照强度","id":"S"},
+        { "name":"二氧化碳浓度","id":"C"}
+      ]
+    }
+  ]
+
+}

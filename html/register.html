@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../Font-Awesome-3.2.1/Font-Awesome-3.2.1/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/register.css">
+</head>
+<body>
+<div class="formContainer">
+    <h2 style="color: #074888; text-align: center; font-family: '华文新魏'">电力通信的“全科医生”</h2>
+    <form id="registerForm">
+        <div class="formGroups">
+            <span class="icon-user iconStyle"></span>
+            <input class="info" type="text" name="username" id="username"
+                   placeholder="请设置一个2-10位的用户名"/>
+        </div>
+        <label class="errorItems"></label>
+        <div class="formGroups">
+            <span class="icon-phone iconStyle"></span>
+            <input class="info" type="text" name="phoneNumber" id="phoneNumber"
+                   placeholder="请输入您的手机号码"/>
+        </div>
+        <label></label>
+        <div class="formGroups">
+            <span class="icon-lock iconStyle"></span>
+            <input class="info" type="password" name="password" id="password"
+                   placeholder="请设置一个6-15位的密码"/>
+        </div>
+        <label></label>
+        <div class="formGroups">
+            <span class="icon-pushpin iconStyle"></span>
+            <input class="info" type="password" name="confirmPassword" id="confirmPassword"
+                   placeholder="请确认密码"/>
+        </div>
+        <label></label>
+        <input class="confirmButton" type="submit" value="立即注册"/>
+    </form>
+</div>
+<div id="cloud"></div>
+
+<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/jquery.validate.min.js"></script>
+<script src="../js/register.js"></script>
+</body>
+</html>

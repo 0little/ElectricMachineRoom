@@ -1,0 +1,160 @@
+body {
+    overflow: auto;
+    margin: 0 auto;
+    font-family: 微软雅黑;
+    min-width: 1200px;
+}
+
+/*内容区*/
+.content {
+    width: 100%;
+    position: relative;
+}
+
+/*轮播图*/
+/*轮播图最外层的盒子容器*/
+.container {
+    width: 100%;
+    height: 480px;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/*图片列表*/
+ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+    /*width: 7200px;*/
+    position: absolute;
+    height: 100%;
+    top: 0;
+    /*left: -800px;*/
+}
+
+ul li {
+    /*width: 800px;*/
+    display: block;
+    float: left;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul li img {
+    width: 100%;
+    height: 480px;
+}
+
+/*向前和向后的按钮*/
+span {
+    color: #666666;
+    font-size: 40px;
+    position: absolute;
+    height: 25px;
+    top: 227.5px;
+    display: block;
+    cursor: pointer;
+}
+
+span:hover {
+    background-color: black;
+}
+
+/*设置向前按钮的初始位置*/
+.prev {
+    left: 0;
+}
+
+/*设置向后按钮的初始位置*/
+.next {
+    right: 0;
+}
+
+/*盛放底部小圆点的盒子*/
+.selectPoint {
+    position: absolute;
+    top: 95%;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+}
+
+/*底部的每一个小圆点*/
+.selectPoint .item {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: gray;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/*与当前显示图片对应的小圆点为白色*/
+.selectPoint .active {
+    background-color: white;
+}
+
+/*服务列表*/
+.serviceBox, .functionBox {
+    width: 80%;
+    height: auto;
+    margin: 50px auto;
+    padding: 0;
+}
+
+/*标题*/
+.serviceBox .serviceTitle, .functionBox .functionTitle {
+    text-align: center;
+    font-size: 20px;
+}
+
+/*说明文字*/
+.serviceBox .textContent {
+    margin: 20px auto;
+    width: 35%;
+    color: #3C3C3D;
+    font-size: 14px;
+    height: 60px;
+}
+
+.serviceBox .textContent div {
+    display: none;
+}
+
+/*盛放所有选项的大盒子*/
+.serviceBox .servicesContainer, .functionBox .functionsContainer {
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.servicesContainer .service, .functionsContainer .function {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 350px;
+    display: inline-flex;
+    display: -webkit-inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.servicesContainer .service:hover {
+    box-shadow: 0 0 20px 0 rgba(56, 162, 155, .8);
+}
+
+
+.servicesContainer .service .serviceName, .functionsContainer .function .functionName {
+    width: 90%;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    font-size: 18px;
+    color: #3C3C3D;
+    margin-top: 20px;
+}
+

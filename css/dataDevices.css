@@ -1,0 +1,95 @@
+/*主体*/
+.main{ width:80%;margin: 0 auto;margin-top:50px;}
+/*某个设备简介*/
+.intro{min-width:1000px;}
+.intro .panel:hover{border-color:#2A9F96;}
+.intro .media-left {padding:10px 0;}
+.intro .panel img{width:150px;height:150px;border-radius: 20px;}
+.intro .dataExport{width:12%; float:right;}
+.intro .body_con{margin-top:10px;margin-left:25px;width:80%;}
+/*数据展示*/
+.show{margin:0 auto;margin-top:50px;overflow: hidden; min-width:1000px;}
+/*每一个类型展示*/
+.show .data_show{
+    margin: 30px 0;
+    overflow: hidden;
+    display: flex;
+    border:2px solid #ccc;
+    border-radius: 6px;
+    -moz-border-radius:6px; /* Old Firefox */
+}
+.show .data_show:hover{border-color:#2A9F96;}
+/*左边信息*/
+.show .data_show .left_con{
+    flex:0 0 160px;
+    /*float:left;*/
+    margin-left:20px;
+    margin-top:20px;
+}
+.show .data_show .left_con .left_con_title{
+    line-height: 34px;
+}
+.show .data_show .left_con .left_con_pic{
+    width:150px;
+    height:150px;
+    padding:9px;
+    border:1px solid #ccc;
+}
+.show .data_show .left_con .left_con_con h3{
+    color: #005188;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 15px;
+}
+/*右边选择及折线图*/
+.show .data_show .right_con{
+    flex:1;
+    /*float:right;*/
+    margin-top: 20px;
+    margin-right: 20px;
+    padding-left:30px;
+    min-width:800px;
+}
+/*右边选择*/
+.show .data_show .right_con .filter{
+    width:60%;
+    height:40px;
+    /*padding-left: 30px;*/
+    margin: 0 auto;
+    min-width:700px;
+
+}
+.show .data_show .right_con .filter ul li{
+    float:left;
+    line-height: 34px;
+    width: 120px;
+    border:1px solid #ccc;
+    border-radius: 5px;
+}
+.show .data_show .right_con .filter ul li a{
+    display:block;
+    color:black;
+    text-align: center;
+    text-decoration: none;
+}
+/*右边折线图*/
+.show .data_show .right_con .chart_show{
+    width:95%;height:260px;margin-top:20px;min-width: 700px;
+}
+/*数据导出选择*/
+#data_export{
+    margin: 30px 50px 30px 105px;
+    display: none;
+}
+#data_export .type_select{
+    display:inline-block;
+    margin-bottom: 20px;
+}
+#data_export .time_select{
+    margin-bottom: 20px;
+}
+#data_export .submit{
+    width:43%;
+    float: right;
+    padding-top: 30px;
+}

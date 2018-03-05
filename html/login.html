@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../Font-Awesome-3.2.1/Font-Awesome-3.2.1/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/register.css">
+</head>
+<body>
+<div class="formContainer">
+    <h2 style="color: #074888; text-align: center; font-family: '华文新魏'">电力通信的“全科医生”</h2>
+    <form id="loginForm">
+        <span class="loginTitle">账号登录</span>
+        <a class="toRegister" href="register.html">立即注册</a>
+        <div class="formGroups">
+            <span class="icon-user iconStyle"></span>
+            <input class="info" type="text" name="username" id="username"
+                   placeholder="请输入用户名"/>
+        </div>
+        <label></label>
+        <div class="formGroups">
+            <span class="icon-lock iconStyle"></span>
+            <input class="info" type="password" name="password" id="password"
+                   placeholder="请输入密码"/>
+        </div>
+        <label></label>
+        <input class="confirmButton" type="submit" value="登录"/>
+    </form>
+</div>
+<div id="cloud"></div>
+
+<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/jquery.validate.min.js"></script>
+<script>
+    $(function () {
+        var $validator = $("#loginForm").validate({
+            rules: {
+                username: {
+                    required: true
+                },
+                password: {
+                    required: true
+                }
+            },
+
+            messages: {
+                username: {
+                    required: "请输入用户名"
+                },
+                password: {
+                    required: "请输入密码"
+                }
+            },
+            errorPlacement: function (error, element) {
+                //error是错误提示元素span对象  element是触发错误的input对象
+                //当通过验证时 error是一个内容为空的span元素
+                error.appendTo(element.parent().next());
+            }
+        });
+
+        $(".confirmButton").click(function () {
+            if($validator.form()) {
+                var data = $("#loginForm").serializeArray();
+                $.post("http://139.199.28.148:8080/smart-sso-demo/user/login", data, function (data) {
+                    if(data == true) {
+                        alert("登录成功");
+                        window.close("login.html");
+                        window.open("mainPage.html");
+                    }
+                }, "json");
+
+            } else {
+                alert("信息填写不完整，再补充一下吧！");
+            }
+        });
+    })
+</script>
+</body>
+</html>

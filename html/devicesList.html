@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>电力设备-电力通信的“全科医生”</title>
+  <link href="../css/init.css" rel="stylesheet">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <link href="../Font-Awesome-3.2.1/Font-Awesome-3.2.1/css/font-awesome.min.css" rel="stylesheet"/>
+  <!-- 导航和底部样式-->
+  <link href="../css/headerAndFooter.css" rel="stylesheet">
+  <!--使用json数据动态生成结构 ，，html模板引擎-->
+  <script src="../js/jrender.js"></script>
+  <!--jqPaginator jquery分页插件-->
+  <script src="../js/jqPaginator.js"></script>
+  <style>
+    .main{
+      width:80%;
+      margin:0 auto;
+      margin-top: 30px;
+      margin-bottom: 50px;
+    }
+    .mainShow{
+      height: 20px;
+      margin-bottom: 50px;
+    }
+    /*管理设备*/
+    .manageDevices{
+      width:10%;
+      float:right;
+    }
+    .col-md-4,.col-sm-6.col-lg-3 .col-xs-12{
+      height:350px;
+    }
+    /*.row{*/
+      /*display: flex;*/
+      /*flex-wrap: wrap;*/
+    /*}*/
+    .row .imgHere{width:100%;height:100%;}
+    .row .imgHere img{width:100%;height:100%;max-width: 100%;  max-height: 100%;}
+    .thumbnail:hover{
+      border-color: #2A9F96;
+    }
+    .thumbnail .intro{
+      width:100%;
+      height:40px;
+      overflow:hidden;
+      /*white-space:nowrap;*/
+      word-wrap: break-word;
+      text-overflow:ellipsis;
+    }
+
+    .caption h4{
+      display: inline-block;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .page{
+      width:100%;
+      height:40px;
+      position: relative;
+    }
+    .page .pagination{
+      position: absolute;
+      width:460px;
+      margin: 0 auto;
+      left:0;
+      right:0;
+    }
+    .page .pagination li a{
+      color:#2A9F96;
+    }
+    .page .pagination .active a{
+      background-color: #2A9F96;
+    }
+    .pagination .active a:link{
+      color:#fff;
+    }
+  </style>
+</head>
+<body>
+<!--导航-->
+  <header>
+    <nav class="header">
+      <img class="logo" src="../image/homePage-logo.png"/><!--logo-->
+      <a class="items">首页</a>
+      <a class="items">设备探索</a>
+      <a class="items">硬件展示</a>
+
+      <div class="logined">
+        <a class="developerBtn">开发者中心</a>
+        <a class="icon-bell bell"></a>
+        <a class="icon-user user"></a>
+      </div>
+    </nav>
+  </header>
+<!--主要内容-->
+  <div class="main">
+    <div class="mainShow">
+      <div class="manageDevices">
+        <!-- 这里需要再加一个添加设备的页面-->
+        <button class="btn btn-default" type="button">管理设备</button>
+      </div>
+    </div>
+    <!-- 设备列表-->
+    <div class="row">
+      <!-- 每一个设备-->
+      <ul render-loop="devicesList">
+        <li>
+          <div class="col-sm-6 col-md-4 col-xs-12 col-lg-3">
+            <div class="thumbnail">
+              <div class="imgHere">
+                <a href="#">
+                  <img render-src="devicesList.imgUrl" alt="...">
+                </a>
+              </div>
+              <div class="caption">
+                <h4 render-fun="show_devices" render-key="devicesList.name"></h4>
+                <div render-fun="show_devices" render-key="devicesList.intro" class="intro"></div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+  <!--分页 -->
+  <div class="page">
+    <div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>
+  </div>
+  <!--底部-->
+  <footer class="footer">
+    <div class="link">
+      <h2>友情链接</h2>
+      <a href="http://iot.10086.cn/cn/">中移物联网</a>
+      <a href="http://iot.10086.cn/cn/corp/priv-net">物联网专网</a>
+      <a href="https://www.oschina.net/">开源中国</a>
+      <a href="http://bbs.elecfans.com/">电子发烧友</a>
+    </div>
+    <div class="app">
+      <h2>APP下载</h2>
+      <img src="../image/homePage-2DCode.png" style="width: 150px; height: 150px"/>
+    </div>
+    <div class="contact">
+      <h2>联系方式</h2>
+      <a href="javascript: return false;">电话：029-88166000</a>
+      <a href="javascript: return false;">传真：029-88166000</a>
+      <a href="javascript: return false;">QQ：1234567890</a>
+      <a href="javascript: return false;">WeChat: xingongshiyanshi</a>
+      <a href="javascript: return false;">邮箱：1234567890@qq.com</a>
+      <a href="javascript: return false;">地址：陕西省西安市长安区西安邮电大学信工实验室</a>
+    </div>
+  </footer>
+<script>
+  var devices = {
+    "devicesList": [
+      {
+        "name":"老朋友的颗粒物检测",
+        "id":"D001",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"C id elit non mi porta gravida at eged nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"大气质量检测站点",
+        "id":"D002",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"项目总目标为研究一种基于物联云平台的的电力通信辅助检测系统，系统研究内容包括三大部分，分别为光缆线路微气象及光缆运行状态监测子系统（含微气象监测、光缆振动监测、无人机辅助光缆巡视）、机房智能巡检子系统（含机房综合检测平台、机器人辅助巡视、防小动物智监测、人工巡检辅助APP等），以及物联云平台（含微气象预警、光缆状态预警、巡检记录查询等各类高级功能）.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"客厅颗粒物检测",
+        "id":"D003",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Cras jurta gravida at eget mericies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"室内空气实时监控",
+        "id":"D004",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Crasd elit non mm id dolor id nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"空气检测器",
+        "id":"D005",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Cra Donec id elietus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"空气检测器",
+        "id":"D005",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Cra Donec id elietus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"空气检测器",
+        "id":"D005",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Cra Donec id elietus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"空气检测器",
+        "id":"D005",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Cra Donec id elietus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"空气检测器",
+        "id":"D005",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Cra Donec id elietus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"空气检测器",
+        "id":"D005",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Cra Donec id elietus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"空气检测器",
+        "id":"D005",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Cra Donec id elietus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"空气检测器",
+        "id":"D005",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Cra Donec id elietus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"空气检测器",
+        "id":"D005",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Cra Donec id elietus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"空气检测器",
+        "id":"D005",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Cra Donec id elietus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"空气检测器",
+        "id":"D005",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Cra Donec id elietus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      },
+      {
+        "name":"空气检测器",
+        "id":"D005",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "intro":"Cra Donec id elietus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
+        "datas":[
+          { "name":"温度","id":"T"},
+          { "name":"湿度","id":"H"},
+          { "name":"光照强度","id":"S"},
+          { "name":"二氧化碳浓度","id":"C"}
+        ]
+      }
+    ]
+  };
+
+  // 法1：使用js,append进行动态添加
+
+  //  $(function(){
+  //    var showlist = everyDevices(devices.devicesList);
+  //    for(var i=0;i<devices.devicesList.length;i++){
+  //      $(".row").append(showlist[i]);
+  //    }
+  //  });
+  //
+  //  function everyDevices(data){
+  //    var list=[];
+  //    for(var i=0;i<data.length;i++){
+  //       list[i]='<div class="col-sm-6 col-md-3">'
+  //       +'<div class="thumbnail">'
+  //       +'<div class="imgHere">'
+  //       +'<img src="'+data[i].imgUrl+'" alt="...">'+'</div>'
+  //       +'<div class="caption">'
+  //       +'<h3>'+data[i].name+'</h3>'
+  //       +'<p>'+data[i].intro+'</p>'
+  //       +'</div>'+'</div>'+'</div>';
+  //    }
+  //    return list;
+  //  }
+
+//法2：使用html模板-插件 jrender.js
+  $(function(){
+    $(".row").renderValues(devices,{
+      'show_devices':function(item,value){
+        console.log(devices)
+        console.log(item);
+//        console.log(value)
+        $(item).html(value);
+      }
+    })
+  })
+
+//法3：使用html模板-prototype
+  //有时间再写
+
+  $(function(){
+       // 创建分页
+       //将num值传给后台
+      $("#Pagination").jqPaginator( {
+        totalPages: 6,
+        visiblePages: 5,
+        currentPage: 1,
+        onPageChange: function (num, type) {
+          //alert(num);
+        },
+        first: '<li class="first"><a href="javascript:void(0);">首页<\/a><\/li>',
+        prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"><\/i>上一页<\/a><\/li>',
+        next: '<li class="next"><a href="javascript:void(0);">下一页<i class="arrow arrow3"><\/i><\/a><\/li>',
+        last: '<li class="last"><a href="javascript:void(0);">末页<\/a><\/li>',
+        page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>'
+      });
+  });
+</script>
+</body>
+</html>

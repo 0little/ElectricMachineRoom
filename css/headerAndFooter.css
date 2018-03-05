@@ -1,0 +1,171 @@
+/*导航栏*/
+.header {
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+    background:  #2A9F96;
+    opacity: 1;
+    padding: 0;
+    z-index: 1;
+    min-width: 1200px;
+}
+
+/*logo*/
+.header .logo {
+    display: inline-block;
+    margin-right: 50px;
+    padding: 0;
+    width: 81px;
+    height: 100%;
+    vertical-align: top;
+}
+
+.header .items {
+    display: inline-block;
+    font-size: 16px;
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0 20px;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    vertical-align: top;
+}
+
+.header .items:hover {
+    color: yellow;
+}
+
+
+/*未登录*/
+.header .unlogin {
+    margin-left: 50%;
+    display: none;
+}
+/*登录和注册按钮*/
+.header .unlogin a{
+    display: inline-flex;
+    display: -webkit-inline-flex;
+    width: 50px;
+    height: 25px;
+    border-radius: 25px;
+    background-color: #FCFCFD;
+    color: #2A9F90;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.header .unlogin a:hover {
+    background-color: lightgrey;
+}
+
+/*已登录*/
+.header .logined {
+    display: inline-block;
+    margin-left: 47%;
+}
+
+.logined a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #FCFCFD;
+}
+
+/*开发者中心按钮*/
+.logined .developerBtn {
+    display: inline-flex;
+    display: -webkit-inline-flex;
+    width: 100px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    border-radius: 25px;
+    border: solid 2px #FCFCFD;
+    margin-right: 20px;
+}
+
+.logined .developerBtn:hover {
+    background-color: lightgrey;
+}
+
+/*消息提示按钮*/
+.logined .bell {
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+.logined .bell:hover {
+    color: yellow;
+}
+
+/*个人中心*/
+.logined .user {
+    font-size: 25px;
+}
+
+.logined .user:hover {
+    color: yellow;
+}
+
+/*底部*/
+.footer {
+    min-width: 1200px;
+    margin-top: 100px;
+    background-color: #2A9F90;
+    color: #FCFCFD;
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    box-sizing: border-box;
+    justify-content: space-around;
+}
+
+.footer h2 {
+    margin-top: 60px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.contact, .link, .app {
+    display: inline-block;
+    height: 350px;
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+
+.contact {
+    width: 400px;
+}
+
+.link {
+    width: 110px;
+}
+
+.app {
+    width: 170px;
+}
+
+.contact:hover, .link:hover, .app:hover {
+    background: -moz-linear-gradient(top, #169E8C 50%, #63C3B6);
+    background: -webkit-linear-gradient(top, #169E8C 20%, #63C3B6);
+    background: -o-linear-gradient(top, #169E8C 50%, #63C3B6);
+}
+
+.footer a {
+    font-size: 16px;
+    display: block;
+    text-decoration: none;
+    color: lightgrey;
+    margin-top: 15px;
+}
+
+.footer a:hover {
+    color: #FCFCFD;
+}
+

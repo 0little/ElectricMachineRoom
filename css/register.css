@@ -1,0 +1,129 @@
+body{
+    background:url(../image/register-backgroud.png) repeat-x;
+    min-height: 600px;
+    position: relative;
+    min-width: 1200px;
+
+}
+
+*{font-family:"微软雅黑"; margin:0; padding:0; border:0; font-size:14px;color:white;}
+html,body{height:100%; width:100%;;}
+
+/*运动的云*/
+#cloud{
+    background: url(../image/register-cloud.png) repeat;
+    width: 100%;
+    height: 356px;
+    position: absolute;
+    bottom: 0;
+    -webkit-animation: cloud 60s linear infinite alternate;
+    -moz-animation: clouds 60s linear infinite alternate;
+}
+
+@-webkit-keyframes cloud {
+    0%{background-position:top left}
+    100%{background-position:top right}
+}
+
+@-moz-keyframes clouds {
+    0%{background-position:top left}
+    100%{background-position:top right}
+}
+
+/*包裹表单的容器*/
+.formContainer {
+    width: 450px;
+    height: auto;
+    box-shadow: 0 0 10px rgba(153, 153, 153, 8);
+    background-color: white;
+    box-sizing: border-box;
+    padding: 20px 30px;
+    position: absolute;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+    margin-top: 50px;
+    z-index: 1;
+}
+
+/*注册表单*/
+#registerForm {
+    margin: 30px 10px;
+    padding: 0;
+    width: 100%;
+}
+
+/*每一个表单项*/
+.formGroups {
+    width: 100%;
+    height: 3.2em;
+    border: 1px solid #DEDFE4;
+    border-radius: 0.3em;
+    margin: 0.5em 0;
+}
+
+/*图标字体的样式*/
+.formGroups .iconStyle {
+    font-size: 1.9em;
+    color: gray;
+    display: inline-block;
+    margin: 0.2em 0.3em;
+}
+
+/*输入框*/
+.formGroups .info {
+    display: inline-block;
+    height: 2.1em;
+    width: 85%;
+    font-size: 1.1em;
+    outline: none;
+    color: gray;
+}
+
+/*提交按钮*/
+.confirmButton {
+    width: 100%;
+    height: 3em;
+    text-align: center;
+    border-radius: 0.5em;
+    background-color: #074888;
+    font-size: 1.2em;
+}
+
+.confirmButton:hover {
+    opacity: 0.7;
+}
+
+/*获取焦点元素的特殊样式*/
+.focus {
+    box-shadow: 0 0 10px rgba(0, 191, 241, 3)
+}
+
+/*用于盛放错误信息的元素*/
+label {
+    display: block;
+    width: 100%;
+    height: 1.5em;
+    color: #074888;
+    font-size: 1em;
+    font-weight: 100;
+}
+
+/*账号登录*/
+.loginTitle {
+    display: inline-block;
+    margin-top: 1em;
+    margin-bottom: 0.2em;
+    font-size: 1.5em;
+    color: black;
+}
+
+/*转向注册的链接*/
+.toRegister {
+    text-decoration: none;
+    color: #4CBEFB;
+    display: inline-block;
+    margin-left: 15em;
+    margin-top: 1em;
+    margin-bottom: 0.2em;
+}

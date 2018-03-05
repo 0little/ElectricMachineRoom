@@ -1,0 +1,228 @@
+body {
+    min-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #EAEFF2;
+    font-family: 微软雅黑;
+}
+
+
+.content {
+    margin: 80px auto;
+    width: 80%;
+    overflow: hidden;
+}
+
+.title {
+    width: 100%;
+    height: 50px;
+}
+
+.text {
+    box-sizing: border-box;
+    width: 12.5%;
+    height: 100%;
+    text-align: center;
+    float: left;
+    background-color: white;
+    padding-top: 12px;
+    font-size: 20px;
+}
+
+.edit {
+    background-color: #DDE2E6;
+    height: 40px;
+    width: 87.5%;
+    float: left;
+    margin-top: 10px;
+}
+
+.edit .button {
+    display: block;
+    width: 60px;
+    height: 30px;
+    border-radius: 25px;
+    text-align: center;
+    background-color: #2A9F90;
+    color: white;
+    opacity: 1;
+    text-decoration: none;
+    font-size: 16px;
+    box-sizing: border-box;
+    padding-top: 5px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.edit a:hover {
+    opacity: 0.7;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+form {
+    box-sizing: border-box;
+    padding: 100px;
+    width: 100%;
+    background-color: white;
+}
+
+.form-row {
+    margin-top: 20px;
+    width: 100%;
+    height: 50px;
+}
+
+.form-row label {
+    display: block;
+    float: left;
+    width: 45%;
+    text-align: right;
+}
+
+.form-row div {
+    margin-left: 30px;
+    float: left;
+    width: 30%;
+}
+
+/*盛放用户头像的盒子*/
+.avatarBox {
+    position: relative;
+}
+
+.avatarBox #avatarPreview {
+    width: 100px;
+    height: 100px;
+}
+
+.avatarBox #avatarSelect {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    opacity: 0;
+    left: 0;
+}
+
+
+/*修改密码*/
+.form-row div a {
+    text-decoration: none;
+    color: #2A9F90;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.form-row input {
+    height: 25px;
+    width: 200px;
+    font-size: 20px;
+    margin-left: 20px;
+    text-align: left;
+    color: black;
+}
+
+.error {
+    margin-left: 25%;
+    margin-top: -30px;
+    color: red;
+}
+
+/*提交和取消按钮*/
+#buttonContainer {
+    display: none;
+    width: 30%;
+    margin: auto;
+}
+
+.submitButton, .cancelButton {
+    display: inline-block;
+    width: 80px;
+    border-radius: 25px;
+    padding: 5px;
+    text-align: center;
+    background-color: #2A9F90;
+    border: none;
+    color: #FCFCFD;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.cancelButton {
+    margin-left: 10%;
+}
+
+/*修改密码*/
+.changePassword {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    left: 0;
+    top: 0;
+    overflow: auto;
+}
+
+.changePassword #changePasswordForm {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    opacity: 1;
+    width: 350px;
+    height: 400px;
+    padding: 50px;
+}
+
+.changePassword #changePasswordForm .row {
+    margin-top: 20px;
+}
+
+.changePassword #changePasswordForm .row .label {
+    width: 100px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.changePassword #changePasswordForm .row input {
+    height: 20px;
+}
+
+.changePassword #changePasswordForm .button {
+    margin-top: 50px;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-around;
+}
+
+.button #changePasswordCancel, .button #changePasswordSubmit {
+    width: 80px;
+    height: 30px;
+    font-size: 20px;
+    background-color: #2A9F90;
+    border-radius: 25px;
+    text-align: center;
+    color: #FCFCFD;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.button #changePasswordCancel:hover, .button #changePasswordSubmit:hover {
+    opacity: 0.8;
+}
+
+
+
+
+
+

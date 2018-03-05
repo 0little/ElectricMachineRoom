@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <!-- 公共样式-->
+  <link href="../css/init.css" rel="stylesheet">
+  <!--jquery-->
+  <script src="../js/jquery.min.js"></script>
+  <!-- bootstrap-->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <script src="../js/bootstrap.min.js"></script>
+  <!-- jquery ui-->
+  <link href="../css/jquery-ui.css" rel="stylesheet">
+  <script src="../js/jquery-ui.min.js"></script>
+  <!-- multiselect-->
+  <link href="../css/jquery.multiselect.css" rel="stylesheet">
+  <script src="../js/jquery.multiselect.js"></script>
+  <!-- 图标-->
+  <link href="../Font-Awesome-3.2.1/Font-Awesome-3.2.1/css/font-awesome.min.css" rel="stylesheet"/>
+  <!-- 导航和底部样式-->
+  <link href="../css/headerAndFooter.css" rel="stylesheet">
+  <!--使用json数据动态生成结构 ，，html模板引擎-->
+  <!--<script src="../js/jrender.js"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.90/jsrender.js"></script>
+  <!-- 折线绘制-->
+  <script src="../js/highcharts.js"></script>
+  <!-- 分享-->
+  <script src="https://img.hcharts.cn/highcharts/highcharts-more.js"></script>
+  <script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
+  <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+  <!-- 此页面样式-->
+  <link href="../css/dataDevices.css" rel="stylesheet">
+</head>
+<body>
+<!--导航-->
+<header>
+  <nav class="header">
+    <img class="logo" src="../image/homePage-logo.png"/><!--logo-->
+    <a class="items">首页</a>
+    <a class="items">设备探索</a>
+    <a class="items">硬件展示</a>
+
+    <div class="logined">
+      <a class="developerBtn">开发者中心</a>
+      <a class="icon-bell bell"></a>
+      <a class="icon-user user"></a>
+    </div>
+  </nav>
+</header>
+<!--主要内容-->
+<div class="main">
+  <!-- 简介-->
+  <div class="intro">
+    <div class="panel panel-default">
+      <div class="panel-body deviceInfo"></div>
+    </div>
+  </div>
+  <script id="deviceInfo" type="text/jsrender">
+
+    <div class="media">
+          <!-- 左边-->
+          <div class="media-left">
+            <img class="media-object" src="{{:imgUrl}}" >
+          </div>
+          <!-- 主体-->
+          <div class="media-body">
+            <!-- 数据导出-->
+            <div class="dataExport">
+              <button type="button" class="btn btn-default" id="data-export">数据导出</button>
+            </div>
+
+            <!-- 主体内容-->
+            <div class="body_con">
+              <p>名称：{{:name}}</p>
+              <P>设备ID：<span id="deviceId">{{:id}}</span></P>
+              <p>简介： {{:info}}</p>
+              <p>创建时间：{{:createTime}}</p>
+              <span>分享到：</span>
+              <div class="jiathis_style_24x24">
+                          <!-- <p class="pull-right"><a href="#">返回顶部</a></p> -->
+                          <a class="jiathis_button_qzone"></a>
+                          <a class="jiathis_button_tsina"></a>
+                          <a class="jiathis_button_tqq"></a>
+                          <a class="jiathis_button_weixin"></a>
+                          <a class="jiathis_button_renren"></a>
+                          <a href="http://www.jiathis.com/share"
+                             class="jiathis jiathis_txt jtico jtico_jiathis"
+                             target="_blank"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  </script>
+  <!-- 数据展示-->
+  <div class="show">
+    <span class="glyphicon glyphicon-stop"></span>
+    <span>数据展示</span>
+    <!--每一个数据的展示-->
+    <div class="showEveryDeviceData"></div>
+    <script id="showEveryDeviceData" type="text/jsrender">
+      {{for sensor}}
+      <div class="data_show">
+        <div class="left_con">
+          <div class="left_con_title">
+            <span>{{:#data}}</span>
+          </div>
+          <div class="left_con_pic">
+            <img src="https://cdn.lewei50.com/content/images/defaultsensor.png">
+          </div>
+          <div class="left_con_con">
+            <h3></h3>
+            <div style="text-align: center;">{{:id}}</div>
+            <form>
+              <input type="hidden" id="{{:~root.id}}" value="{{:#data}}"
+            </form>
+          </div>
+        </div>
+        <div class="right_con">
+          <div class="filter" >
+            <ul>
+              <li><a href="javascript:aaa('{{:~root.id}}','{{:#data}}',0)">实时</a></li>
+              <li><a href="javascript:aaa('{{:~root.id}}','{{:#data}}',1)">最近一天</a></li>
+              <li><a href="javascript:aaa('{{:~root.id}}','{{:#data}}',2)">最近一周</a></li>
+              <li><a href="javascript:aaa('{{:~root.id}}','{{:#data}}',3)">最近一月</a></li>
+            </ul>
+          </div>
+          <div class="chart_show">
+            <div id="{{:~root.id}}{{:#data}}" style="width:90%;min-width:400px;height:260px;margin: 0 auto;">
+              哎呀，你的网络有点问题
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/for}}
+  </script>
+  </div>
+  <!-- 弹出的内容-->
+  <div id="data_export" title="数据导出">
+    <div>
+        <div class="type_select">
+          <span>类型：</span>
+          <select id ="sela" title="数据类型" multiple="multiple" name="export" size="20">
+          </select>
+          <span class="requiredType" style="display: none;">   *必填字段</span>
+        </div>
+        <div class="time_select">
+          <span>时间：</span>
+          <div style="margin-left: -4px; display: inline-block;">
+            <label for="from"></label>
+            <input type="text" id="from" name="from" >
+            <label for="to">~</label>
+            <input type="text" id="to" name="to" >
+            <span class="requiredTime" style="display: none;">   *必填字段</span>
+          </div>
+        </div>
+        <div class="submit">
+          <input  id="submit" type="submit"
+                  class="btn btn-default btn-md"
+                  style="background: #2A9F96;color: #fff;" value="确定">
+          <input id="resetButton" name="resetButton" type="reset" value="重置" class="btn btn-default btn-md">
+        </div>
+
+    </div>
+
+
+  </div>
+</div>
+<footer class="footer">
+  <div class="link">
+    <h2>友情链接</h2>
+    <a href="http://iot.10086.cn/cn/">中移物联网</a>
+    <a href="http://iot.10086.cn/cn/corp/priv-net">物联网专网</a>
+    <a href="https://www.oschina.net/">开源中国</a>
+    <a href="http://bbs.elecfans.com/">电子发烧友</a>
+  </div>
+  <div class="app">
+    <h2>APP下载</h2>
+    <img src="../image/homePage-2DCode.png" style="width: 150px; height: 150px"/>
+  </div>
+  <div class="contact">
+    <h2>联系方式</h2>
+    <a href="javascript: return false;">电话：029-88166000</a>
+    <a href="javascript: return false;">传真：029-88166000</a>
+    <a href="javascript: return false;">QQ：1234567890</a>
+    <a href="javascript: return false;">WeChat: xingongshiyanshi</a>
+    <a href="javascript: return false;">邮箱：1234567890@qq.com</a>
+    <a href="javascript: return false;">地址：陕西省西安市长安区西安邮电大学信工实验室</a>
+  </div>
+</footer>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<script>
+  //根据json数组绘制折线图(设备id,单位,绘制类型，纵坐标标题)
+  function loadReport(eid, unit, ctype, ytitle) {
+    if (ytitle == undefined) ytitle = '';
+    var step = false;
+    if (ctype == null || ctype == "smoothedLine")
+      ctype = "spline";
+    if (ctype == "step") { ctype = ""; step = "left" };
+
+    var containerId = 'cc' + eid;
+
+    var chart;
+    $("#" + containerId).html('<img src="../images/loading.gif" align="center" style="margin-top:80px;" />');
+    $.getJSON("http://ot31wbk51.bkt.clouddn.com/wendu.txt", $("#cf" + eid).serialize(), function(data) {
+      console.log(data);
+      if (data == "" || data == undefined || data == null) {
+        $("#" + containerId).html('<div style="color:gray;padding-top:80px;">No data.</div>');
+        return;
+      }
+      chart = new Highcharts.Chart({
+        chart: {
+          renderTo: containerId,
+          type: ctype,
+          animation: false,
+          zoomType: 'x'
+        },
+        legend: {
+          enabled: false
+        },
+        title: {
+          text: ''
+        },
+        xAxis: {
+          type: 'datetime'
+        },
+        yAxis: {
+          title: {
+            text: ytitle
+          },
+
+          minorGridLineWidth: 0,
+          gridLineWidth: 1,
+          alternateGridColor: null
+        },
+        tooltip: {
+          formatter: function() {
+            return '' +
+                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br><b>Value:' + getValue(this.y) + unit + '</b>';
+          }
+        },
+        plotOptions: {
+          spline: {
+            lineWidth: 2,
+            states: {
+              hover: {
+                lineWidth: 3
+              }
+            },
+            marker: {
+              enabled: false,
+              states: {
+                hover: {
+                  enabled: true,
+                  symbol: 'circle',
+                  radius: 3,
+                  lineWidth: 1
+                }
+              }
+            }
+
+          },
+          line: {
+            lineWidth: 1,
+            states: {
+              hover: {
+                lineWidth: 1
+              }
+            },
+            marker: {
+              enabled: false,
+              states: {
+                hover: {
+                  enabled: true,
+                  symbol: 'circle',
+                  radius: 3,
+                  lineWidth: 1
+                }
+              }
+            }
+
+          }
+        },
+        series: [{
+          data: data,
+          step: step
+
+        }],
+        credits: {
+        enabled: false     //去掉highcharts网站url
+        },
+        navigation: {
+          menuItemStyle: {
+            fontSize: '10px'
+          }
+        }
+      });
+
+    });
+
+  }
+
+  //全局筛选
+  //  var sidArray=[53851,53852,53853,53854,53855,53856];
+//  function setAllTime(no) {
+//    $(".tt a").removeClass('cur');
+//    $("#tt" + no).addClass('cur');
+//    for (var i = 0; i < sidArray.length; i++) {
+//      nLoadReport2(sidArray[i],no);
+//    }
+//  }
+
+  //纵坐标值
+  function getValue(y){
+    return y;
+    if(y==1)
+      return "关闭";
+    else
+      return y;
+  }
+  //加载id(定义了传感器的id)的数据(传感器id，单位，绘制类型)
+  //确保unit和ctype一定存在
+  function loadReport2(id, unit, ctype) {
+    if (ctype == undefined || ctype == null || ctype == '')
+      ctype = $("#ctype" + id).val();
+    if (unit == undefined || unit == null || unit == '')
+      unit = $("#unit" + id).val();
+    loadReport(id, unit, ctype);
+  }
+  //加载sid(传感器id)的no(实时，最近)(1,2,3,4,5)数据
+  function nLoadReport2(sid,no){
+    //li class
+    $(".ts"+sid+" a").removeClass('cur');
+    //a id
+    $("#ts" +sid+"_"+ no).addClass('cur');
+    //form id
+    $("#cf"+sid+" .r"+no).attr('checked','checked');
+    //加载id(定义了传感器的id)的数据
+    loadReport2(sid);
+  }
+  //设备id，哪个传感器，时段,绘制类型(可选)，纵坐标(可选),单位(可选)
+  function aaa(id,sensor,no,ctype,ytitle,unit){
+    if (ytitle == undefined) ytitle = '';
+    var step = false;
+//    if (ctype == undefined || ctype == null || ctype == '')
+//      ctype = $("#ctype" + id).val();
+    if (ctype == null || ctype == "smoothedLine")
+      ctype = "spline";
+    if (ctype == "step") { ctype = ""; step = "left" }
+
+    if (unit == undefined || unit == null || unit == '')
+      unit = $("#" + id).val();
+
+    var containerId =  id+sensor;
+    var parmas = {};
+    parmas.id=id;
+    parmas.sensor=sensor;
+    parmas.time=no;
+    console.log(parmas)
+    var chart;
+    $("#" + containerId).html('<img src="../image/loading.gif" align="center" style="margin-top:80px;" />');
+    //ajax获取数据
+//    $.post("http://139.199.28.148:8080/smart-sso-demo/data/findNew",parmas,function(data){
+//
+//    });
+    $.get("http://ot31wbk51.bkt.clouddn.com/wendu.txt", function(data) {
+      console.log(data);
+      if (data == "" || data == undefined || data == null) {
+        $("#" + containerId).html('<div style="color:gray;padding-top:80px;">No data.</div>');
+        return;
+      }
+      chart = new Highcharts.Chart({
+        chart: {
+          renderTo: containerId,
+          type: ctype,
+          animation: false,
+          zoomType: 'x'
+        },
+        legend: {
+          enabled: false
+        },
+        title: {
+          text: ''
+        },
+        xAxis: {
+          type: 'datetime'
+        },
+        yAxis: {
+          title: {
+            text: ytitle
+          },
+
+          minorGridLineWidth: 0,
+          gridLineWidth: 1,
+          alternateGridColor: null
+        },
+        tooltip: {
+          formatter: function() {
+            return '' +
+            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br><b>Value:' + getValue(this.y) + unit + '</b>';
+          }
+        },
+        plotOptions: {
+          spline: {
+            lineWidth: 2,
+            states: {
+              hover: {
+                lineWidth: 3
+              }
+            },
+            marker: {
+              enabled: false,
+              states: {
+                hover: {
+                  enabled: true,
+                  symbol: 'circle',
+                  radius: 3,
+                  lineWidth: 1
+                }
+              }
+            }
+
+          },
+          line: {
+            lineWidth: 1,
+            states: {
+              hover: {
+                lineWidth: 1
+              }
+            },
+            marker: {
+              enabled: false,
+              states: {
+                hover: {
+                  enabled: true,
+                  symbol: 'circle',
+                  radius: 3,
+                  lineWidth: 1
+                }
+              }
+            }
+
+          }
+        },
+        series: [{
+          data: data,
+          step: step
+
+        }],
+        credits: {
+          enabled: false     //去掉highcharts网站url
+        },
+        exporting:{
+          enabled:false //用来设置是否显示‘打印’,'导出'等功能按钮，不设置时默认为显示
+        },
+        legend: {
+          enabled: false
+        },
+        navigation: {
+          menuItemStyle: {
+            fontSize: '10px'
+          }
+        }
+      });
+
+    },'json');
+  }
+//  function add1Maker(map,x, y, title) {
+//    var marker1 = new BMap.Marker(new BMap.Point(x, y));
+//    map.addOverlay(marker1);
+//    var infoWindow1 = new BMap.InfoWindow(title);
+//    marker1.addEventListener("click", function () { this.openInfoWindow(infoWindow1); });
+//    marker1.openInfoWindow(infoWindow1);
+//  }
+//  function loadGPS(sensorId) {
+//    var containerId = 'cc' + sensorId;
+//    $("#" + containerId).html('<img src="../images/loading.gif" align ="center" style="margin-top:80px;margin-left:365px;" />');
+//    $.getJSON("/home/GPSSDataCurrent/" + sensorId, null, function (json) {
+//      if (json.Successful == false) {
+//      }
+//      else {
+//        var map = new BMap.Map(containerId);
+//        map.addControl(new BMap.NavigationControl());
+//        var point = new BMap.Point(json.Data.Lng, json.Data.lat);
+//        map.centerAndZoom(point, 17);
+//        add1Maker(map, json.Data.Lng, json.Data.Lat, json.Data.Title)
+//      }
+//
+//    });
+//  }
+
+  $(function () {
+    $.each(devices.devicesList[0].sensor,function(index,data) {
+      aaa(devices.devicesList[0].id, data, 0);
+    });
+//    loadReport2(53851, '℃','smoothedLine');
+//    loadReport2(53852, '%','smoothedLine');
+//    loadReport2(53853, 'ug/m3','smoothedLine');
+//    loadReport2(53854, '','smoothedLine');
+//    loadReport2(53855, 'mg/m3','smoothedLine');
+//    loadReport2(53856, 'PPM','smoothedLine');
+
+    //highcharts绘图
+//    Highcharts.setOptions({
+//      lang: {
+//        printChart:"打印图表",
+//        downloadJPEG: "下载JPEG 图片" ,
+//        downloadPDF: "下载PDF文档"  ,
+//        downloadPNG: "下载PNG 图片"  ,
+//        downloadSVG: "下载SVG 矢量图" ,
+//        exportButtonTitle: "导出图片"
+//      }
+//    });
+//    var options = {
+//      chart: {
+//        renderTo: 'data_show_every',
+//        type: 'spline'
+//      },
+//      title:{
+////        enabled:false,
+//        text:'  '
+//      },
+//      xAxis: {
+//        type: 'datetime',
+//        dateTimeLabelFormats: {
+//          millisecond: '%H:%M:%S.%L'
+//        },
+//        crosshair: true,
+//        title:{
+//          enabled:false
+////          ,text:"时间"
+//        }
+//      },
+//      yAxis:[{
+//        crosshair: true,//十字准星
+//        gridLineColor: '#197F07', //绿色网格线
+//        title:{
+//          enabled:false
+////          ,text:"温度"
+//        }
+//      }],
+//      navigation: {
+//        buttonOptions: {
+//          align: 'right',
+//          enabled: true
+//        }
+//      },
+//      series: [{
+////        name:'温度',
+//        pointStart: Date.UTC(2017, 10, 30),
+//        pointInterval: 1000*3600 // 一小时
+//      }],
+//      credits: {
+//        enabled: false     //去掉highcharts网站url
+//      }
+//      ,legend: {
+//        enabled: false
+//      },exporting:{
+//        enabled:false //用来设置是否显示‘打印’,'导出'等功能按钮，不设置时默认为显示
+//      }
+//
+//    };
+//    var arrX = [],arrY=[];
+//    $.ajax({
+//      type: "GET",
+////      url: "http://139.199.97.82:8080/hulianwang/data_findHNew.action",
+//      url:"http://ot31wbk51.bkt.clouddn.com/chartsData.json",
+//      data: null,
+//      success: function(msg){
+//        console.log(msg);
+////        msg=JSON.parse(msg);
+////        for(var key in msg){
+////          if(key == "T"){
+////            for(var val in msg[key])
+////              arr.push(parseInt(msg[key][val]));
+////          }
+////        }
+//        $.each(msg.data,function(i,d){
+//          arrX.push(d.T);
+//          arrY.push(d.time);
+//        });
+//        console.log(arrX);
+////        var l = arr.length;
+////        arr=arr.slice(l-13,l-1);
+//        var chart = new Highcharts.Chart('data_show_every', options);
+//        chart.series[0].setData(arrX);
+////        chart.series[1].setData(arrY);
+//      }
+
+    //显示这个设备的信息
+    var template = $.templates("#deviceInfo");
+    var htmlOutput = template.render(devices.devicesList[0]);
+    $(".deviceInfo").html(htmlOutput);
+    //显示这个设备传感器的所有数据
+    var template1 = $.templates("#showEveryDeviceData");
+    var htmlOutput1 = template1.render(devices.devicesList[0]);
+    $(".showEveryDeviceData").html(htmlOutput1);
+    //数据导出弹出框
+    $( "#data_export" ).dialog({
+      autoOpen: false,
+      height: 300,
+      width: 650,
+      modal: true,
+      resizable:false
+
+    });
+    //数据导出弹框
+    $( "#data-export").click(function(){
+      $( "#data_export" ).dialog( "open" );
+    });
+    //这个设备支持的传感器类型
+    $.each(devices.devicesList[0].sensor,function(index,html){
+      $('#sela').append(
+              $('<option></option>')
+                      .text(html)
+                      .val(html)
+      );
+    });
+    //数据类型选择
+    $("#sela").multiselect({
+      noneSelectedText: "==请选择要导出的数据==",
+      checkAllText: "全选",
+      uncheckAllText: '全不选'
+      ,selectedList:8
+      ,minWidth:325
+    });
+    //时间选择
+    $( "#from" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 1,
+//      showButtonPanel: true,
+      dateFormat: 'yy-mm-dd',//日期格式
+      minDate:"-2M",
+      maxDate:"today",
+      yearSuffix: '年', //年的后缀
+      showMonthAfterYear:true,//是否把月放在年的后面
+      monthNamesShort: ['一','二','三','四','五','六',
+        '七','八','九','十','十一','十二'],
+      dayNamesMin: ['日','一','二','三','四','五','六'],
+      onSelect: function( selectedDate ) {
+        $( "#to" ).datepicker( "option", "minDate", selectedDate );
+      }
+    });
+    $( "#to" ).datepicker({
+      defaultDate: "+1w",//
+      changeMonth: true,
+      dateFormat: 'yy-mm-dd',//日期格式
+      numberOfMonths: 1, //显示几个月
+//      showButtonPanel: true, //是否显示按钮面板
+      yearSuffix: '年', //年的后缀
+      showMonthAfterYear:true,//是否把月放在年的后面
+      minDate:"-2M",
+      maxDate:"today",
+      monthNamesShort: ['一','二','三','四','五','六',
+        '七','八','九','十','十一','十二'],
+      dayNamesMin: ['日','一','二','三','四','五','六'],
+      onSelect: function( selectedDate ) {
+        $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+      }
+    });
+    //确认提交，进行导出数据
+    $(".submit #submit").click(function(e){
+      //验证select
+      if(0==$('#sela').val()){
+        $('.requiredType').css("display","inline");
+        return false;
+      }else if(0==$('#from').val()||$('#to').val()==0){
+        $('.requiredTime').css("display","inline");
+        return false;
+      }else{
+        //关闭弹框
+        $( "#data_export" ).dialog('close');
+        //ajax异步加载
+        var type = $('#sela').val(),
+                startTime=$('#from').val(),
+                endTime=$('#to').val(),
+                deviceId=$('#deviceId').html();
+
+        var params = {
+          "deviceId":deviceId,
+          "export":type,
+          "startTime":startTime,
+          "endTime":endTime
+        };
+        //iframe src只能在IE下载。chrome报错
+//        $('#download').attr('src','http://ot31wbk51.bkt.clouddn.com/chartsData.json');
+        //使用a download属性
+        const elink = document.createElement('a');// 创建a标签
+        elink.download = '数据.xls'; // 文件名
+        elink.style.display = 'none';
+        //href属性与页面url是否同源，火狐需要同源
+        elink.href = 'http://ot31wbk51.bkt.clouddn.com/chartsData.json';
+        document.body.appendChild(elink);
+        elink.click();// 触发点击a标签事件
+        document.body.removeChild(elink);
+
+        console.log(params);
+        $.ajax({
+          url:'',
+          type:'post',
+          data:params,
+          dataType:'json',
+          success:function(response){
+            console.log(response);
+//          下载文件
+            const elink = document.createElement('a');// 创建a标签
+            elink.download = '测试表格123.xls'; // 文件名
+            elink.style.display = 'none';
+            elink.href = response.url;
+            document.body.appendChild(elink);
+            elink.click();// 触发点击a标签事件
+            document.body.removeChild(elink);
+          },
+          error:function(){
+
+          }
+        });
+        resetData();
+      }
+    });
+  });
+
+
+
+    //重置
+    function resetData(){
+      $("#sela").multiselect("uncheckAll");
+      document.getElementById('from').value="";
+      document.getElementById('to').value="";
+    }
+    $(".submit #resetButton").click(function(){
+      resetData();
+    });
+
+
+  var devices = {
+    "devicesList":[
+      {
+        "id":"8646aee7229e48f4810966b93e4450c1",
+        "name":"温湿度监控",
+        "createTime":"20171111",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "sensor":['温度','湿度','烟雾浓度'],
+        "info":"asdds1",
+        "location":"106.353202,29.584348",
+        "data":[
+          {
+            key:"温度",
+            value:"23"
+          },
+          {
+            key:"湿度",
+            value:"23"
+          },
+          {
+            key:"烟雾浓度",
+            value:123
+          }
+        ]
+      },
+      {
+        "id":"8646aee7229e48f4810966b93e4450c2",
+        "name":"温湿度监控",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "sensor":['温度','湿度','二氧化碳','烟雾浓度'],
+        "info":"asdds2",
+        "location":"",
+        "data":[
+          {
+            key:"温度",
+            value:"23"
+          },
+          {
+            key:"湿度",
+            value:"23"
+          },
+          {
+            key:"二氧化碳",
+            value:23
+          },
+          {
+            key:"烟雾浓度",
+            value:123
+          }
+        ]
+      }
+      ,{
+        "id":"8646aee7229e48f4810966b93e4450c3",
+        "name":"小伊利温湿度监控",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "sensor":['温度','二氧化碳','光照强度','烟雾浓度'],
+        "info":"asdds3",
+        "location":"",
+        "data":[
+          {
+            key:"温度",
+            value:"23"
+          },
+          {
+            key:"光照强度",
+            value:23
+          },
+          {
+            key:"二氧化碳",
+            value:23
+          },
+          {
+            key:"烟雾浓度",
+            value:123
+          }
+        ]
+      }
+      ,{
+        "id":"8646aee7229e48f4810966b93e4450c4",
+        "name":"小蒙牛温湿度监控",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "sensor":['温度','湿度','二氧化碳','光照强度','烟雾浓度'],
+        "info":"asdds4",
+        "location":"",
+        "data":[
+          {
+            key:"温度",
+            value:"23"
+          },
+          {
+            key:"湿度",
+            value:"23"
+          },
+          {
+            key:"光照强度",
+            value:23
+          },
+          {
+            key:"二氧化碳",
+            value:23
+          },
+          {
+            key:"烟雾浓度",
+            value:123
+          }
+        ]
+      }
+      ,{
+        "id":"8646aee7229e48f4810966b93e4450c5",
+        "name":"温湿度监控",
+        "imgUrl":"../image/machineRoom-display1.png",
+        "sensor":['温度','湿度','二氧化碳','光照强度','烟雾浓度'],
+        "info":"asdds5",
+        "location":"",
+        "data":[
+          {
+            key:"温度",
+            value:"23"
+          },
+          {
+            key:"湿度",
+            value:"23"
+          },
+          {
+            key:"光照强度",
+            value:23
+          },
+          {
+            key:"二氧化碳",
+            value:23
+          },
+          {
+            key:"烟雾浓度",
+            value:123
+          }
+        ]
+      }
+    ]
+  };
+
+
+</script>
+</body>
+</html>
